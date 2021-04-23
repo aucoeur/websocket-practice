@@ -6,9 +6,18 @@ const nameInput = document.querySelector('#name-input')
 
 let ws
 
+function calculateHue(str) {
+  let num = 0
+  for (let i=0; i < str.length; i++) {
+    num += str.charCodeAt(i)
+  }
+  return num % 360
+}
+
 // Display messages from the websocket
 function showMessage(data) {
-  messages.innerHTML += `<li>${data.name}: ${data.message}\n\n</li>` // display the message
+  let hue = calculateHue(data.name)
+  messages.innerHTML += `<li><span class="name" style="color: hsl(${hue}, 80%, 50%)">${data.name}</span>: ${data.message}</li>` // display the message
   messages.scrollTop = messages.scrollHeight // scroll to the top
   messageInput.value = '' // clear the input field
 }
